@@ -1,3 +1,4 @@
+import json
 import os
 from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
@@ -67,6 +68,29 @@ def create_app(test_config=None):
   TEST: When you click the trash icon next to a question, the question will be removed.
   This removal will persist in the database and when you refresh the page. 
   '''
+
+    @app.route('/questions', methods=['POST'])
+    def post_question():
+        data = json.loads(request.data)
+        success = False
+
+        try:
+            question = Question(
+                question=data['question'],
+                answer=data['answer'],
+                category=data['category'],
+                difficulty=data['difficulty']
+            )
+
+            question.insert()
+
+            success = True
+        except:
+            success = False
+
+        return jsonify({
+            'success': success
+        })
 
     '''
   @TODO: 
