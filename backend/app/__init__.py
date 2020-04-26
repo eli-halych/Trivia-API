@@ -19,14 +19,18 @@ def create_app(test_config=None):
   '''
 
     '''
-  @TODO: Use the after_request decorator to set Access-Control-Allow
-  '''
-
-    '''
   @TODO: 
   Create an endpoint to handle GET requests 
   for all available categories.
   '''
+
+    @app.route('/categories', methods=['GET'])
+    def get_categories():
+        categories = Category.query.all()
+        formatted_categories = {category.id: category.type
+                                for category in categories}
+
+        return jsonify(formatted_categories)
 
     '''
   @TODO: 
