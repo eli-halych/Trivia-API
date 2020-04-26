@@ -33,6 +33,15 @@ class TriviaTestCase(unittest.TestCase):
         """Executed after reach test"""
         pass
 
+    def test_get_categories(self):
+        res = self.client().get(
+            '/categories'
+        )
+        status_code = res.status_code
+        data = json.loads(res.data)
+
+        self.assertEqual(status_code, 200)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
