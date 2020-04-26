@@ -42,6 +42,24 @@ class TriviaTestCase(unittest.TestCase):
 
         self.assertEqual(status_code, 200)
 
+    def test_get_questions_paginated(self):
+        total_questions = len(Question.query.all())
+        # total // per_page gives all full pages
+        # +1 for possible not full page
+        # +1 for a definite failing page
+        failing_page = total_questions // QUESTIONS_PER_PAGE + 2
+
+        # failing page number provided
+        res = self.client().get(
+            f'/questions?page={failing_page}'
+        )
+        data = json.loads(res.data)
+        status_code = res.status_code
+
+        # status code is always 200, only questions are empty
+        self.assertEqual(status_code, 200)
+        self.assertTrue(len(data['questions']) == 0)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
