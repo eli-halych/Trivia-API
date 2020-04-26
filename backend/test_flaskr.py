@@ -60,6 +60,25 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(status_code, 200)
         self.assertTrue(len(data['questions']) == 0)
 
+    def test_post_question(self):
+        request_body = {
+            'question': 'Test',
+            'answer': 'Answer',
+            'difficulty': 4,
+            'category': 1
+        }
+        res = self.client().post(
+            '/questions',
+            data=json.dumps(request_body)
+        )
+        status_code = res.status_code
+        data = json.loads(res.data)
+        # print(data)
+        success = data['success']
+
+        self.assertEqual(status_code, 200)
+        self.assertTrue(success)
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
