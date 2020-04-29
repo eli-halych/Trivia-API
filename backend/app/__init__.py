@@ -141,7 +141,6 @@ def create_app(test_config=None):
             'current_category': None
         }
 
-
         try:
             search_term = data['searchTerm']
             questions = Question.query.filter(Question.question.ilike(f'%{search_term}%')).all()
@@ -164,6 +163,21 @@ def create_app(test_config=None):
   categories in the left column will cause only questions of that 
   category to be shown. 
   '''
+
+    @app.route('/categories/<category_id>/questions', methods=['GET'])
+    def get_questions_by_category(category_id):
+        response = {
+            'questions': [],
+            'total_questions': 0,
+            'current_category': None
+        }
+
+        questions = Question.query.filter(Question.category == category_id).all()
+        formatted_questions = [question.format() for question in questions]
+        response['questions'] = formatted_questions
+        response['total_questions'] = len(formatted_questions)
+
+        return jsonify(response)
 
     '''
   @TODO: 
