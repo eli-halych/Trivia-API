@@ -73,7 +73,28 @@ class TriviaTestCase(unittest.TestCase):
         )
         status_code = res.status_code
         data = json.loads(res.data)
-        # print(data)
+        success = data['success']
+
+        self.assertEqual(status_code, 200)
+        self.assertTrue(success)
+
+    def test_delete_question(self):
+        question = Question(
+            question='question',
+            answer='answer',
+            category='1',
+            difficulty='4'
+        )
+
+        question.insert()
+        question_id = question.id
+
+        res = self.client().delete(
+            f'/questions/{question_id}'
+        )
+
+        status_code = res.status_code
+        data = json.loads(res.data)
         success = data['success']
 
         self.assertEqual(status_code, 200)
