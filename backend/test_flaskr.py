@@ -75,6 +75,10 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(res.data)
         success = data['success']
 
+        questions = Question.query.filter(Question.question.ilike('%Test%')).all()
+        for q in questions:
+            q.delete()
+
         self.assertEqual(status_code, 200)
         self.assertTrue(success)
 
@@ -97,9 +101,42 @@ class TriviaTestCase(unittest.TestCase):
         data = json.loads(res.data)
         success = data['success']
 
+        question.delete()
+
         self.assertEqual(status_code, 200)
         self.assertTrue(success)
 
+    def test_search_question(self):
+        question = Question(
+            question='dummy_question_search',
+            answer='answer',
+            category='1',
+            difficulty='4'
+        )
+
+        question.insert()
+
+        search_term = 'dummy_Question'
+        body = {
+            'searchTerm': search_term
+        }
+        res = self.client().post(
+            f'/questions/search',
+            data=json.dumps(body)
+        )
+
+        status_code = res.status_code
+        data = json.loads(res.data)
+        success = data['success']
+        questions = data['questions']
+        total_questions = data['total_questions']
+
+        question.delete()
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(len(questions), 1)
+        self.assertEqual(total_questions, 1)
+        self.assertTrue(success)
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
