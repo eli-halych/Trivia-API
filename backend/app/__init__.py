@@ -31,7 +31,10 @@ def create_app(test_config=None):
         formatted_categories = {category.id: category.type
                                 for category in categories}
 
-        return jsonify(formatted_categories)
+        response = {
+            'categories': formatted_categories
+        }
+        return jsonify(response)
 
     '''
   TEST: At this point, when you start the application
@@ -191,10 +194,51 @@ def create_app(test_config=None):
   and shown whether they were correct or not. 
   '''
 
+    @app.route('/quizzes', methods=['POST'])
+    def post_quiz():
+        data = json.loads(request.data)
+
+        previous_questions = data['previous_questions']
+        quiz_category = data['quiz_category']
+        category_id = int(quiz_category['id'])
+
+        success = False
+        response = {
+            'question': None
+        }
+        try:
+            if category_id == 0:
+                questions = Question.query.all()
+            else:
+                questions = Question.query.filter(Question.category == category_id).all()
+
+            random.shuffle(questions)
+
+            for question in questions:
+                if question.id not in previous_questions:
+                    response['question'] = question.format()
+                    break
+
+            success = True
+        except:
+            success = False
+        finally:
+            response['success'] = success
+
+        return jsonify(response)
+
     '''
   @TODO: 
   Create error handlers for all expected errors 
   including 404 and 422. 
   '''
+
+    @app.errorhandler(500)
+    def internal_error(error):
+        return jsonify({
+            'success': False,
+            'error_code': 500,
+            'message': 'Internal Server Error'
+        }), 500
 
     return app

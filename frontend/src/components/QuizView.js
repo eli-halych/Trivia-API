@@ -131,9 +131,9 @@ class QuizView extends Component {
   }
 
   evaluateAnswer = () => {
-    const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
-    const answerArray = this.state.currentQuestion.answer.toLowerCase().split(' ');
-    return answerArray.includes(formatGuess)
+    // const formatGuess = this.state.guess.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase()
+    // const answerArray = this.state.currentQuestion.answer.toLowerCase().split(' ');
+    return this.state.guess.indexOf(this.state.currentQuestion.answer) >= 0
   }
 
   renderCorrectAnswer(){
