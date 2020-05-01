@@ -39,8 +39,10 @@ class TriviaTestCase(unittest.TestCase):
         )
         status_code = res.status_code
         data = json.loads(res.data)
+        success = data['success']
 
         self.assertEqual(status_code, 200)
+        self.assertTrue(success)
 
     def test_get_questions_paginated(self):
         total_questions = len(Question.query.all())
@@ -59,6 +61,18 @@ class TriviaTestCase(unittest.TestCase):
         # status code is always 200, only questions are empty
         self.assertEqual(status_code, 200)
         self.assertTrue(len(data['questions']) == 0)
+
+        # valid page
+        valid_page = 1
+        res = self.client().get(
+            f'/questions?page={valid_page}'
+        )
+        data = json.loads(res.data)
+        status_code = res.status_code
+
+        # status code is always 200, only questions are empty
+        self.assertEqual(status_code, 200)
+        self.assertTrue(len(data['questions']) > 0)
 
     def test_post_question(self):
         request_body = {
@@ -188,8 +202,6 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(status_code, 200)
         self.assertTrue(question)
         self.assertTrue(success)
-
-
 
         # category 1
         request_body = {
