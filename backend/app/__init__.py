@@ -76,12 +76,15 @@ def create_app(test_config=None):
         response['success'] = success
         return jsonify(response)
 
-    # get a question by ID
+    # delete a question by ID
     @app.route('/questions/<question_id>', methods=['DELETE'])
     def delete_question(question_id):
 
         success = False
         response = {}
+
+        if question_id is None:
+            abort(400)
 
         try:
             question = Question.query.get(question_id)
@@ -207,7 +210,7 @@ def create_app(test_config=None):
         previous_questions = data['previous_questions']
         quiz_category = data['quiz_category']
         category_id = int(quiz_category['id'])
-
+        print(previous_questions)
         try:
 
             # ALL vs a specific category
