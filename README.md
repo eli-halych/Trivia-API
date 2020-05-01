@@ -1,8 +1,19 @@
-# Full Stack API Final Project
+# Full Stack API - Trivia Game, version 1.0
+
+## Functionalities
+1) Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer. 
+2) Delete questions.
+3) Add questions and require that they include question and answer text.
+4) Search for questions based on a text query string.
+5) Play the quiz game, randomizing either all questions or within a specific category. 
+
+## Modules
+
+1. [`./frontend/`](./frontend/README.md)
+2. [`./backend/`](./backend/README.md)
 
 ## Documentation
 ```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
 ----------------------------
 ----------------------------
@@ -191,15 +202,3 @@ POST '/quizzes'
 }
 
 ```
-
-## Functionalities
-1) Display questions - both all questions and by category. Questions should show the question, category and difficulty rating by default and can show/hide the answer. 
-2) Delete questions.
-3) Add questions and require that they include question and answer text.
-4) Search for questions based on a text query string.
-5) Play the quiz game, randomizing either all questions or within a specific category. 
-
-## Modules
-
-1. [`./frontend/`](./frontend/README.md)
-2. [`./backend/`](./backend/README.md)
