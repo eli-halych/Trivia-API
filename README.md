@@ -8,7 +8,7 @@
 5) Play the quiz game, randomizing either all questions or within a specific category. 
 
 ## Documentation
-####Endpoints
+#### Endpoints
 ```
 GET '/categories'
 GET '/categories/<category_id>/questions'
