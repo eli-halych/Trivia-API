@@ -8,12 +8,8 @@
 5) Play the quiz game, randomizing either all questions or within a specific category. 
 
 ## Documentation
+####Endpoints
 ```
-
-----------------------------
-----------------------------
-Endpoints
-
 GET '/categories'
 GET '/categories/<category_id>/questions'
 GET '/questions'
@@ -21,9 +17,9 @@ POST '/questions/search'
 DELETE '/questions/<question_id>'
 POST '/questions'
 POST '/quizzes'
-----------------------------
-----------------------------
-Error handlers
+```
+#### Error handlers
+```
 Return objects of a success status, error_code, message. Error codes.
 
 500 Internal Server Error
@@ -32,7 +28,8 @@ Return objects of a success status, error_code, message. Error codes.
     'error_code': 500,
     'message': 'Internal Server Error'
 }, 500
-----------------------------
+```
+```
 400 Bad Request
 - Returns
 {
@@ -40,7 +37,8 @@ Return objects of a success status, error_code, message. Error codes.
     'error_code': 400,
     'message': 'Bad Request'
 }, 400
-----------------------------
+```
+```
 404 Not Found
 - Returns
 {
@@ -48,7 +46,8 @@ Return objects of a success status, error_code, message. Error codes.
     'error_code': 404,
     'message': 'Not Found'
 }, 404
-----------------------------
+```
+```
 422 Unprocessable Entity
 - Returns
 {
@@ -56,8 +55,9 @@ Return objects of a success status, error_code, message. Error codes.
     'error_code': 422,
     'message': 'Unable To Process Contained Instructions In The Request'
 }, 422
-----------------------------
-----------------------------
+```
+#### Endpoint descriptions
+```
 GET '/categories'
 
 - Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
@@ -76,7 +76,8 @@ GET '/categories'
                 },
     success: True
 }
-----------------------------
+```
+```
 GET '/categories/<category_id>/questions'
 
 - Fetches a list of questions in a related category given by a category ID.
@@ -97,7 +98,8 @@ GET '/categories/<category_id>/questions'
     'current_category': None,
     'success': True
 }
-----------------------------
+```
+```
 GET '/questions'
 
 - Fetches a list of questions within a specified range which is a number of questions per page.
@@ -127,7 +129,8 @@ current category, a list of all categories and a success status.
                 },
     'success': True
 }
-----------------------------
+```
+```
 POST '/questions/search'
 
 - Fetch all questions whose question containes a specified search term (case insensitive).
@@ -148,7 +151,8 @@ POST '/questions/search'
     'current_category': None,
     'success': True
 }
-----------------------------
+```
+```
 DELETE '/questions/<question_id>'
 
 - Removes a question given by a question ID,
@@ -158,7 +162,8 @@ DELETE '/questions/<question_id>'
 {
     'success': True
 }
-----------------------------
+```
+```
 POST '/questions'
 
 - Create a new question.
@@ -173,7 +178,8 @@ POST '/questions'
 {
     'success': True
 }
-----------------------------
+```
+```
 POST '/quizzes'
 
 - Initiates a new game with questions a user didn't see before in current category if any was given.
