@@ -7,11 +7,6 @@
 4) Search for questions based on a text query string.
 5) Play the quiz game, randomizing either all questions or within a specific category. 
 
-## Modules
-
-1. [`./frontend/`](./frontend/README.md)
-2. [`./backend/`](./backend/README.md)
-
 ## Documentation
 ```
 
